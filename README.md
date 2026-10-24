@@ -4,6 +4,13 @@ Monthly doctor shift schedule for one department: two 12-hour shifts a day
 (9 AM – 9 PM, 9 PM – 9 AM), filled by hand, shared as an image on WhatsApp.
 Works offline; all data stays in the browser it was entered in.
 
+## Online (any device)
+
+https://galileo103.github.io/rota/ — published from `main` by
+`.github/workflows/pages.yml` (lint, tests, build, deploy). Open it on a phone
+and choose **Add to Home screen / Install app**. Each device and address keeps
+its own data; move data with **Settings → Backup / Restore**.
+
 ## Daily use (laptop)
 
 ```sh
