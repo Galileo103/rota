@@ -1,0 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+.tools
+test-results
+playwright-report
+.audio-cache
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Build and tool caches
+*.tsbuildinfo
+coverage
+.vite
+.cache
+/blob-report
+
+# Claude Code local settings
+.claude/settings.local.json

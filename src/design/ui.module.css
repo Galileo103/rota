@@ -1,0 +1,314 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pageHeader p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cardHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-ink);
+}
+
+.primary:hover:not(:disabled) {
+  background: #1a5fd0;
+}
+
+.danger {
+  color: var(--danger);
+  border-color: #f0c4c4;
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.small {
+  min-height: 30px;
+  padding: 3px 10px;
+  font-size: 0.88rem;
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.field > span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  min-height: 38px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.input:focus {
+  border-color: var(--primary);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 38px;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin: 0 -16px;
+  padding: 0 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Two classes so it wins over `.table th` (which is left-aligned). */
+.table .num,
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Phone: a `.stack` table turns each row into a small card. Cells show their
+ * column name from `data-label`; `data-wide` cells take the full card width.
+ */
+@media (max-width: 640px) {
+  .stack thead {
+    display: none;
+  }
+
+  .stack,
+  .stack tbody {
+    display: block;
+  }
+
+  .stack tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stack tr:last-child {
+    border-bottom: none;
+  }
+
+  .stack td {
+    display: block;
+    padding: 0;
+    border: none;
+    min-width: 0;
+  }
+
+  .stack td[data-wide] {
+    grid-column: 1 / -1;
+  }
+
+  .stack td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .stack .num {
+    text-align: left;
+  }
+
+  .stack td [data-end] {
+    justify-content: flex-start !important;
+  }
+
+  /* Phones zoom into inputs with text under 16px. */
+  .input {
+    font-size: 16px;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.badge_info {
+  background: var(--primary-soft);
+  border-color: #c7d9fb;
+  color: #174ea6;
+}
+
+.badge_warn {
+  background: var(--warn-soft);
+  border-color: #f4d9a6;
+  color: var(--warn);
+}
+
+.badge_danger {
+  background: var(--danger-soft);
+  border-color: #f2c2c2;
+  color: var(--danger);
+}
+
+.badge_ok {
+  background: var(--ok-soft);
+  border-color: #bfe3ca;
+  color: var(--ok);
+}
+
+.notice {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.notice_warn {
+  background: var(--warn-soft);
+  border-color: #f4d9a6;
+}
+
+.notice_danger {
+  background: var(--danger-soft);
+  border-color: #f2c2c2;
+}
+
+.notice_ok {
+  background: var(--ok-soft);
+  border-color: #bfe3ca;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 20px 8px;
+}

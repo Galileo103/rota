@@ -1,0 +1,423 @@
+.monthNav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.targetInput {
+  width: 72px;
+  text-align: right;
+}
+
+.inactive td {
+  color: var(--muted);
+}
+
+/* ── Balance ───────────────────────────────────────────────────── */
+
+.meter {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  background: var(--warn);
+}
+
+.meterFill[data-tone='ok'] {
+  background: var(--ok);
+}
+
+.balanceNumbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.balanceNumbers div {
+  display: grid;
+}
+
+.balanceNumbers strong {
+  font-size: 1.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.balanceNumbers span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ── Schedule grid ─────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.gridHead,
+.gridRow {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.gridHead {
+  background: var(--surface-2);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.gridHead > span {
+  padding: 8px 10px;
+}
+
+.gridHead small {
+  font-weight: 400;
+}
+
+.gridRow {
+  border-top: 1px solid var(--border);
+}
+
+.gridRow[data-weekend] {
+  background: var(--weekend-row, var(--weekend-soft));
+}
+
+.dateCell {
+  padding: 8px 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.shiftCell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 8px;
+  border-left: 1px solid var(--border);
+  align-items: flex-start;
+}
+
+.shiftCell[data-shift='N'] {
+  background: rgb(59 63 143 / 4%);
+}
+
+.shiftTag {
+  display: none;
+}
+
+.seat {
+  display: inline-grid;
+  min-width: 120px;
+  flex: 1 1 120px;
+  padding: 4px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+button.seat {
+  cursor: pointer;
+}
+
+button.seat:hover {
+  border-color: var(--primary);
+}
+
+/* Adds a 3rd (or 4th) doctor to a busy shift. Quiet until hovered. */
+.addSeat {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px dashed #b8c2cf;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.45;
+}
+
+.shiftCell:hover .addSeat,
+.addSeat:focus-visible {
+  opacity: 1;
+}
+
+.addSeat:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (hover: none) {
+  .addSeat {
+    opacity: 0.8;
+  }
+}
+
+.seat[data-selected] {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.seat[data-swap] {
+  outline: 2px dashed var(--primary);
+  outline-offset: 1px;
+  background: var(--primary-soft);
+}
+
+.grid[data-swapping] button.seat:not([data-swap]):hover {
+  background: var(--primary-soft);
+}
+
+.seat small {
+  font-weight: 400;
+  font-size: 0.76rem;
+}
+
+/* Empty is normal while she fills the month: quiet, not alarming. */
+.seat[data-state='empty'] {
+  border: 1px dashed #b8c2cf;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.seat[data-state='conflict'] {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+/* Phone: each day becomes a card with the two shifts stacked. */
+@media (max-width: 600px) {
+  .gridHead {
+    display: none;
+  }
+
+  .gridRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shiftCell {
+    border-left: none;
+    border-top: 1px dashed var(--border);
+  }
+
+  .shiftTag {
+    display: block;
+    width: 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+}
+
+/* ── Editing ───────────────────────────────────────────────────── */
+
+.toolbar {
+  position: sticky;
+  top: 56px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  background: var(--surface);
+}
+
+.swapBanner {
+  flex: 1 1 260px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--primary-soft);
+  color: #174ea6;
+  font-weight: 600;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(16 24 40 / 35%);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.panel {
+  width: min(420px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  background: var(--surface);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: -8px 0 24px rgb(16 24 40 / 18%);
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.option {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option[data-status='warn'] {
+  background: var(--warn-soft);
+}
+
+.option[data-status='blocked'] {
+  opacity: 0.55;
+}
+
+.option[data-current] {
+  border-color: var(--primary);
+  opacity: 1;
+}
+
+.optionMain {
+  display: grid;
+  font-size: 0.92rem;
+}
+
+.optionMain span {
+  font-size: 0.8rem;
+}
+
+.optionSide {
+  align-self: center;
+}
+
+.optionNotes {
+  grid-column: 1 / -1;
+  display: grid;
+  color: var(--warn);
+}
+
+.option[data-status='good'] .optionNotes {
+  color: var(--muted);
+}
+
+.emptyLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--surface-2);
+}
+
+.issues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.issues li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.issues li[data-severity='error'] {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.issues li[data-severity='warn'] {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+@media (max-width: 600px) {
+  .backdrop {
+    align-items: flex-end;
+  }
+
+  .panel {
+    height: auto;
+    max-height: 85dvh;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -8px 24px rgb(16 24 40 / 18%);
+  }
+
+  /* On a phone the toolbar wraps; pinning it would cover the schedule. */
+  .toolbar {
+    position: static;
+    padding-top: 0;
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media print {
+  .toolbar,
+  .backdrop {
+    display: none;
+  }
+}

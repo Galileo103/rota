@@ -1,0 +1,99 @@
+.shell {
+  min-height: 100dvh;
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.active {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Phone: brand on top, navigation becomes a bottom tab bar. */
+@media (max-width: 720px) {
+  .top {
+    padding: 10px 16px;
+  }
+
+  .nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-around;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .link {
+    flex-direction: column;
+    gap: 0;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .link span:first-child {
+    font-size: 1.25rem;
+  }
+
+  .main {
+    padding: 14px 12px calc(84px + env(safe-area-inset-bottom));
+  }
+}
+
+@media print {
+  .top {
+    display: none;
+  }
+
+  .main {
+    padding: 0;
+    max-width: none;
+  }
+}
